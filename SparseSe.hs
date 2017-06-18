@@ -8,7 +8,7 @@
 
 module SparseSe where
 
-import qualified Data.Map as Map
+import qualified Data.Map.Sparse as Map
 
 import qualified Data.Vector.Unboxed as UV
 
@@ -16,7 +16,16 @@ import Data.Word
 
 type BV = UV.Vector Word64
 
-data SSe a =
-	SSe (UV.Vector a) BV BV
-	deriving (Eq, Ord, Show)
+data Sparse a =
+	Sparse { sparseValues :: !(UV.Vector a), sparseNonZero, sparseCounts :: !BV }
+	deriving (Show)
+
+-- |Sparse series.
+-- 
+data SpSe a = SpSe {
+	  spseCurrentIndex	:: !Int		-- |Row index.
+	, spseSparses		:: [Sparse a]	-- |log structured sequence.
+	, spseMap		:: !(Map.Map (Int, Int) a	-- |Top-level cache.
+	}
+	deriving (Show)
 
