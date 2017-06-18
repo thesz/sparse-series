@@ -8,7 +8,7 @@
 
 module SparseSe where
 
-import qualified Data.Map.Sparse as Map
+import qualified Data.Map.Strict as Map
 
 import qualified Data.Vector.Unboxed as UV
 
@@ -25,7 +25,7 @@ data Sparse a =
 data SpSe a = SpSe {
 	  spseCurrentIndex	:: !Int		-- |Row index.
 	, spseSparses		:: [Sparse a]	-- |log structured sequence.
-	, spseMap		:: !(Map.Map (Int, Int) a	-- |Top-level cache.
+	, spseMap		:: !(Map.Map (Int, Int) a)	-- |Top-level cache.
 	}
 	deriving (Show)
 
